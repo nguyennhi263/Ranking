@@ -1,8 +1,5 @@
 package com.example.asto_nhi.ranking;
 
-/**
- * Created by rudresh.jr on 12/7/2016.
- */
 
 
 import android.content.Context;
