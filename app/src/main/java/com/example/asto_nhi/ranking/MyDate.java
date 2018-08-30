@@ -3,7 +3,7 @@ package com.example.asto_nhi.ranking;
 public class MyDate {
     int dateNum;
     int weatherCode;
-
+    String rokyoDay;
     public MyDate(int dateNum, int weatherCode) {
         this.dateNum = dateNum;
         this.weatherCode = weatherCode;
@@ -51,5 +51,13 @@ public class MyDate {
                 return "scattered_showers_day_night";
         }
     return "";
+    }
+
+    public String getRokyoDay() {
+        return rokyoDay;
+    }
+
+    public void setRokyoDay(String rokyoDay) {
+        this.rokyoDay = rokyoDay;
     }
 }

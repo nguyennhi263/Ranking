@@ -53,16 +53,17 @@ public class CalendarAdapter extends ArrayAdapter<MyDate> {
 
         TextView dayNum = (TextView) view.findViewById(R.id.dayNum);
         ImageView iconWeather = (ImageView) view.findViewById(R.id.iconWeather);
-        TextView weatherCode = (TextView) view.findViewById(R.id.dayDesciption);
+        TextView  rokyoDay= (TextView) view.findViewById(R.id.rokyoDay);
 
         if (curDate.getDateNum()== 0){
             // previous month
             dayNum.setVisibility(View.INVISIBLE);
-
+            rokyoDay.setVisibility(View.INVISIBLE);
         }
         else {
             // set text
             dayNum.setText(String.valueOf(curDate.getDateNum()));
+            rokyoDay.setText(curDate.getRokyoDay());
             // if empty weather
             if (curDate.getWeatherCode() != 0) {
 
@@ -77,9 +78,6 @@ public class CalendarAdapter extends ArrayAdapter<MyDate> {
                     Drawable res = contex.getResources().getDrawable(imageResource);
                     iconWeather.setImageDrawable(res);
                 }
-                //test
-                weatherCode.setVisibility(View.VISIBLE);
-                weatherCode.setText(curDate.getWeatherCode()+"");
             }
 
         }

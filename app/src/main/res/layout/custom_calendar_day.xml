@@ -18,8 +18,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:visibility="invisible"
-        android:id="@+id/dayDesciption"
+        android:visibility="visible"
+        android:id="@+id/rokyoDay"
         android:layout_width="wrap_content"
         android:layout_height="13dp"
         android:layout_marginEnd="8dp"
@@ -27,7 +27,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="abc"
+        android:textSize="10dp"
+        android:textColor="@color/While"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dayNum"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,8 +56,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/dayDesciption"
-        app:layout_constraintStart_toStartOf="@+id/dayDesciption"
-        app:layout_constraintTop_toBottomOf="@+id/dayDesciption"
+        app:layout_constraintEnd_toEndOf="@+id/rokyoDay"
+        app:layout_constraintStart_toStartOf="@+id/rokyoDay"
+        app:layout_constraintTop_toBottomOf="@+id/rokyoDay"
         app:srcCompat="@drawable/sad" />
 </android.support.constraint.ConstraintLayout>

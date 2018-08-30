@@ -2,7 +2,10 @@ package com.example.asto_nhi.ranking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.icu.util.ChineseCalendar;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +27,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +47,7 @@ public class TestCalendarActivity extends AppCompatActivity {
     ArrayList<MyWeather> myWeatherArrayList = new ArrayList<>();
     int currentMonth;
     int currentYear;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +80,11 @@ public class TestCalendarActivity extends AppCompatActivity {
             }
         });
 
+        //
+
+  /*
+        ChineseCalendar chineseCalendar = new ChineseCalendar( calendar.getTime());
+        test.setText(chineseCalendar.get(chineseCalendar.DATE)+"."+chineseCalendar.get(chineseCalendar.MONTH));*/
     }
     private void iniCalendar(){
         test = (TextView) findViewById(R.id.test) ;
@@ -120,6 +130,7 @@ public class TestCalendarActivity extends AppCompatActivity {
         // get day of current month
         for (int i=1; i<= DAYS_COUNT;i++){
             MyDate myDate = new MyDate(i,0);
+            myDate.setRokyoDay(new QReki().RokuYo(year,month,i));
             //check weather forecast
             if (!myWeatherArrayList.isEmpty()){
                 if(myWeatherArrayList.contains(new MyWeather(i,month,year))){
@@ -214,6 +225,7 @@ public class TestCalendarActivity extends AppCompatActivity {
             }
             //test.setText(s.toString());
             updateCalendar(currentMonth,currentYear);
+            //updateCalendar(1,2031);
             // end dialog bar
 
         }
