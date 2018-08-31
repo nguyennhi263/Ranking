@@ -46,7 +46,6 @@ public class CalendarAdapter extends ArrayAdapter<MyDate> {
         LayoutInflater inflater = contex.getLayoutInflater();
         // day in question
         MyDate curDate = getItem(position);
-
         // inflate item if it does not exist yet
         if (view == null)
             view = inflater.inflate(R.layout.custom_calendar_day, parent, false);
