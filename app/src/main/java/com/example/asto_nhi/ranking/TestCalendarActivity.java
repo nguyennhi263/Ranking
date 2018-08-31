@@ -79,12 +79,16 @@ public class TestCalendarActivity extends AppCompatActivity {
                 updateCalendar(currentMonth,currentYear);
             }
         });
-
-        //
-
-  /*
-        ChineseCalendar chineseCalendar = new ChineseCalendar( calendar.getTime());
-        test.setText(chineseCalendar.get(chineseCalendar.DATE)+"."+chineseCalendar.get(chineseCalendar.MONTH));*/
+        /*
+        //test
+        Calendar cal = Calendar.getInstance();
+        cal.set(2018,11-1,8);
+        ChineseCalendar chineseCalendar = new ChineseCalendar( cal.getTime());
+        int mLunarDay = chineseCalendar.get(chineseCalendar.DATE);
+        int mLunarMonth = chineseCalendar.get(chineseCalendar.MONTH)+1;
+        int myDay = new ChineseCalendarConvert().getLunarDay(8,11,2018);
+        int myMonth = new ChineseCalendarConvert().getLunarMonth(8,11,2018);
+        test.setText(mLunarDay+"."+mLunarMonth+" "+myDay+"."+myMonth);*/
     }
     private void iniCalendar(){
         test = (TextView) findViewById(R.id.test) ;
@@ -110,7 +114,8 @@ public class TestCalendarActivity extends AppCompatActivity {
         }
 
     }
-    private void updateCalendar(int month,int year)
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void updateCalendar(int month, int year)
     {
         //clear data
         myDates.clear();
@@ -130,25 +135,28 @@ public class TestCalendarActivity extends AppCompatActivity {
         // get day of current month
         for (int i=1; i<= DAYS_COUNT;i++){
             MyDate myDate = new MyDate(i,0);
-            myDate.setRokyoDay(new QReki().RokuYo(year,month,i));
+            myDate.setRokyoDay(new RokuyoCalendar().convertRokuyoDay(i,month,year));
             //check weather forecast
             if (!myWeatherArrayList.isEmpty()){
                 if(myWeatherArrayList.contains(new MyWeather(i,month,year))){
-                    //Toast.makeText(getApplicationContext(),i+"",Toast.LENGTH_SHORT).show();
                     int index = myWeatherArrayList.indexOf(new MyWeather(i,month,year));
                     int weatherCode = myWeatherArrayList.get(index).getWeatherCode();
                     myDate.setWeatherCode(weatherCode);
                 }
             }
-           else
-            {
-
-            }
-
             //
             myDates.add(myDate);
         }
 
+        // get day of next month
+        calendar.set(year,month - 1,DAYS_COUNT);  // set calendar start at end of month
+        int LAST_DAY  = calendar.get(Calendar.DAY_OF_WEEK);
+        if (LAST_DAY<8){
+            for (int i = 7;i >LAST_DAY;i--){
+                MyDate myDate = new MyDate(0,0);
+                myDates.add(myDate);
+            }
+        }
         // update grid view
         CalendarAdapter calendarAdapter = new CalendarAdapter(this,myDates);
         grid.setAdapter(calendarAdapter);

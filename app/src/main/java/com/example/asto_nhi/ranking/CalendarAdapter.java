@@ -55,9 +55,9 @@ public class CalendarAdapter extends ArrayAdapter<MyDate> {
         ImageView iconWeather = (ImageView) view.findViewById(R.id.iconWeather);
         TextView  rokyoDay= (TextView) view.findViewById(R.id.rokyoDay);
 
-        if (curDate.getDateNum()== 0){
+        if (curDate.getDateNum() == 0){
             // previous month
-            dayNum.setVisibility(View.INVISIBLE);
+            dayNum.setVisibility(View.GONE);
             rokyoDay.setVisibility(View.INVISIBLE);
         }
         else {

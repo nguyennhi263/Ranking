@@ -70,20 +70,16 @@ public class QReki {
             }
         }
         if (omm < 0) {
-//			uruu = '閏';
             uruu = "閏";
             omm = -omm;
         } else {
-//			uruu = '';
             uruu = "";
         }
-//	return Array(oyy,omm,odd,uruu);
     }
 
     // グレゴリウス暦閏年判定。閏年なら 1, 平年なら 0
 //function LeapYear(yy) {
     static int LeapYear(int yy) {
-//	var ans = 0;
         int ans = 0;
         if ((yy % 4) == 0) ans = 1;
         if ((yy % 100) == 0) ans = 0;
@@ -92,13 +88,9 @@ public class QReki {
     }
 
     // 新暦年初からの通日 1/1 = 1
-//function NumberDays(yy,mm,dd) {
     static int NumberDays(int yy,int mm,int dd) {
         nmdays[1] = 28 + LeapYear(yy);
-
-//		var days = dd;
         int days = dd;
-//		for (var m = 1; m < mm ; m++) {
         for (int m = 1; m < mm ; m++) {
             days += nmdays[m - 1];
         }
@@ -106,18 +98,14 @@ public class QReki {
     }
 
     // 旧暦・新暦テーブル(otbl)作成
-//function TblExpand(yy) {
     static void TblExpand(int yy) {
-//	var ommax,days,uruu,bit;
         int ommax,days,uruu,bit;
 
         days = o2ntbl[yy - nyymin][0];
         bit  = o2ntbl[yy - nyymin][1];
         uruu = days % 13;	// 閏月抽出。無ければ 0
-//		days = Math.floor(days / 13 + 0.001);	// 旧暦年初の新暦年初からの日数
         days = (int)Math.floor(days / 13 + 0.001);	// 旧暦年初の新暦年初からの日数
 
-//	otbl[0] = Array(days,1);	// 旧暦正月の通日と、月数
         otbl[0][0] = days;otbl[0][1] = 1;	// 旧暦正月の通日と、月数
         if (uruu == 0) {
             bit *= 2;	// 閏無しなら 12ヶ月
@@ -128,7 +116,6 @@ public class QReki {
 
 //	for (var i = 1; i <= ommax; i++) {
         for (int i = 1; i <= ommax; i++) {
-//		otbl[i] = Array(otbl[i-1][0]+29, i+1);
             otbl[i][0] = otbl[i-1][0]+29;otbl[i][1] = i+1;
             if (bit >= 4096) {
                 otbl[i][0]++;	// 大の月
@@ -138,13 +125,11 @@ public class QReki {
         otbl[ommax][1] = 0;	// テーブルの終わり＆旧暦翌年年初
 
         if (ommax > 12) {// 閏月のある年
-//		for (var i = uruu + 1; i < 13 ; i++) {
             for (int i = uruu + 1; i < 13 ; i++) {
                 otbl[i][1] = i;
             }
             otbl[uruu][1] = -uruu;	// 識別のため閏月はマイナスで記録
         } else {
-//		otbl[13] = Array(0,0);	// 使ってないけどエラー防止で。
             otbl[13][0] = 0;otbl[13][1] = 0;	// 使ってないけどエラー防止で。
         }
     }
